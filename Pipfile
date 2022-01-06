@@ -5,8 +5,13 @@ name = "pypi"
 
 [packages]
 streamlit = "*"
-
+gql="3.0.0rc0"
+aiohttp="*"
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.9.6"
+
+[pipenv]
+
+allow_prereleases = true
