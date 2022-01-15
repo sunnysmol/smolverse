@@ -81,15 +81,14 @@ def getFloor():
 
     
 
-    kpi1.metric(label = "Smol Brains",
-            value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
+    kpi1.metric(label = "Smol Brains 🧠", value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
             )
-    kpi2.metric(label = "Smol Bodies",
+    kpi2.metric(label = "Smol Bodies 💪",
             value = "$%.2f" %(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC")))
 
-    kpi3.metric(label = "Smol Land",
+    kpi3.metric(label = "Smol Land 🏡",
             value = "$%.2f" %(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC")))
-    kpi4[1].metric(label = "Smol Cars",
+    kpi4[1].metric(label = "Smol Cars 🚗",
             value = "$%.2f" %(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC")))
 
     smolbrains_value = int(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC"))*2
