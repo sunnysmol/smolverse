@@ -14,7 +14,7 @@ st.title("SMOLVERSE - Dashboard")
 st.subheader("Free Mints 🚀 📈")
 
 #st.markdown("### Key Metrics")
-@st.cache
+
 def getTickerPrice(ticker):
     url =f'https://api.covalenthq.com/v1/pricing/tickers/?quote-currency=USD&format=JSON&tickers={ticker}&key=ckey_78290656a6ca426fa748bdcd41b'
     response = requests.get(url)
@@ -35,7 +35,7 @@ def buildFloorQuery():
         """
         )
     return query
-@st.cache
+
 def getFloorPrice(collection):
     transport = AIOHTTPTransport(url="https://api.thegraph.com/subgraphs/name/wyze/treasure-marketplace")
 
@@ -47,7 +47,7 @@ def getFloorPrice(collection):
     floor = int(smolbrains[0]['floorPrice'])/1000000000000000000
     #print(f"floor is {floor}")
     return floor
-@st.cache
+
 def getMagicPriceGraph(ticker):
     query = gql(
         f"""
@@ -81,14 +81,15 @@ def getFloor():
 
     
 
-    kpi1.metric(label = "Smol Brains 🧠", value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
+    kpi1.metric(label = "Smol Brains",
+            value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
             )
-    kpi2.metric(label = "Smol Bodies 💪",
+    kpi2.metric(label = "Smol Bodies",
             value = "$%.2f" %(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC")))
 
-    kpi3.metric(label = "Smol Land 🏡",
+    kpi3.metric(label = "Smol Land",
             value = "$%.2f" %(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC")))
-    kpi4[1].metric(label = "Smol Cars 🚗",
+    kpi4[1].metric(label = "Smol Cars",
             value = "$%.2f" %(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC")))
 
     smolbrains_value = int(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC"))*2
@@ -112,7 +113,7 @@ getFloor()
 
 # st.markdown("### Important Charts 📈")
 
-# chart1, chart2 = st.columns(2)
+# chart1, chart2 = st.columns(2stat
 
 # chart_data = pd.DataFrame(
 #     np.random.randn(20, 3),
