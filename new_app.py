@@ -92,9 +92,17 @@ def getFloor():
     kpi4[1].metric(label = "Smol Cars",
             value = "$%.2f" %(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC")))
 
+    smolbrains_value = int(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC"))*2
+    smolboadies_value = int(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC"))*2
+    smolCars_value = int(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC"))*2
+    smol_land = int(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC"))
+
+    total = smol_land+smolCars_value+smolboadies_value+smolbrains_value
+
     totalFloor[2].metric(label = "Total Free Mint",
-            value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
+            value = "$%.2f" %int(total),
             )
+
     totalFloor[0].image('https://www.smolverse.lol/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FGrow.725fafa2.gif&w=256&q=75',width=70)
     st.markdown("***")
 
