@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+<<<<<<< HEAD
 aiohttp = "==3.8.1"
 aiosignal = "==1.2.0"
 altair = "==4.2.0"
@@ -137,3 +138,16 @@ SQLAlchemy = "==1.4.27"
 
 [requires]
 python_version = "3.9"
+=======
+streamlit = "*"
+gql="3.0.0rc0"
+aiohttp="*"
+[dev-packages]
+
+[requires]
+python_version = "3.9.6"
+
+[pipenv]
+
+allow_prereleases = true
+>>>>>>> 20f040824495bb305e66dee45d977b6be68abd16
