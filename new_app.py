@@ -5,6 +5,9 @@ import requests
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 from pprint import pprint
+from streamlit_autorefresh import st_autorefresh
+
+count = st_autorefresh(interval=3000000, key="fizzbuzzcounter")
 
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -14,7 +17,7 @@ st.title("SMOLVERSE - Dashboard")
 st.subheader("Free Mints 🚀 📈")
 
 #st.markdown("### Key Metrics")
-
+@st.cache
 def getTickerPrice(ticker):
     url =f'https://api.covalenthq.com/v1/pricing/tickers/?quote-currency=USD&format=JSON&tickers={ticker}&key=ckey_78290656a6ca426fa748bdcd41b'
     response = requests.get(url)
@@ -35,7 +38,7 @@ def buildFloorQuery():
         """
         )
     return query
-
+@st.cache
 def getFloorPrice(collection):
     transport = AIOHTTPTransport(url="https://api.thegraph.com/subgraphs/name/wyze/treasure-marketplace")
 
@@ -47,7 +50,7 @@ def getFloorPrice(collection):
     floor = int(smolbrains[0]['floorPrice'])/1000000000000000000
     #print(f"floor is {floor}")
     return floor
-
+@st.cache
 def getMagicPriceGraph(ticker):
     query = gql(
         f"""
@@ -106,7 +109,7 @@ def getFloor():
     totalFloor[0].image('https://www.smolverse.lol/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FGrow.725fafa2.gif&w=256&q=75',width=70)
     st.markdown("***")
 
-    st.text("follow on twitter @smolmintfloor")
+    st.write("follow on twitter [@smolmintfloor](https://twitter.com/smolmintfloor)")
 getFloor()
 
 
