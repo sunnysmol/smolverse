@@ -9,6 +9,15 @@ from streamlit_autorefresh import st_autorefresh
 
 count = st_autorefresh(interval=3000000, key="fizzbuzzcounter")
 
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
