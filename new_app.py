@@ -17,7 +17,7 @@ st.title("SMOLVERSE - Dashboard")
 st.subheader("Free Mints 🚀 📈")
 
 #st.markdown("### Key Metrics")
-@st.cache
+
 def getTickerPrice(ticker):
     url =f'https://api.covalenthq.com/v1/pricing/tickers/?quote-currency=USD&format=JSON&tickers={ticker}&key=ckey_78290656a6ca426fa748bdcd41b'
     response = requests.get(url)
@@ -38,7 +38,6 @@ def buildFloorQuery():
         """
         )
     return query
-@st.cache
 def getFloorPrice(collection):
     transport = AIOHTTPTransport(url="https://api.thegraph.com/subgraphs/name/wyze/treasure-marketplace")
 
@@ -50,7 +49,7 @@ def getFloorPrice(collection):
     floor = int(smolbrains[0]['floorPrice'])/1000000000000000000
     #print(f"floor is {floor}")
     return floor
-@st.cache
+
 def getMagicPriceGraph(ticker):
     query = gql(
         f"""
@@ -82,25 +81,27 @@ def getFloor():
 
     final_val = my_dynamic_value / new_val
 
+    smolbrains_value = int(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC"))
+    smolboadies_value = int(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC"))
+    smolCars_value = int(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC"))
+    smol_land = int(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC"))
+    kpi1.metric(label = "Smol Brains 🧠",
+            value = "$%.2f" %smolbrains_value,
+            )
+    kpi2.metric(label = "Smol Bodies 💪",
+            value = "$%.2f" %smolboadies_value)
+
+    kpi3.metric(label = "Smol Land 🏠",
+            value = "$%.2f" %smol_land)
+    kpi4[1].metric(label = "Smol Cars 🚗",
+            value = "$%.2f" %smolCars_value)
+
+    smolbrains_value_dash = smolbrains_value*2
+    smolboadies_value_dash = smolboadies_value*2
+    smolCars_value_dash = smolCars_value*2
     
 
-    kpi1.metric(label = "Smol Brains",
-            value = "$%.2f" %(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC")),
-            )
-    kpi2.metric(label = "Smol Bodies",
-            value = "$%.2f" %(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC")))
-
-    kpi3.metric(label = "Smol Land",
-            value = "$%.2f" %(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC")))
-    kpi4[1].metric(label = "Smol Cars",
-            value = "$%.2f" %(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC")))
-
-    smolbrains_value = int(getFloorPrice("Smol Brains")*getMagicPriceGraph("MAGIC"))*2
-    smolboadies_value = int(getFloorPrice("Smol Bodies")*getMagicPriceGraph("MAGIC"))*2
-    smolCars_value = int(getFloorPrice("Smol Cars")*getMagicPriceGraph("MAGIC"))*2
-    smol_land = int(getFloorPrice("Smol Brains Land")*getMagicPriceGraph("MAGIC"))
-
-    total = smol_land+smolCars_value+smolboadies_value+smolbrains_value
+    total = smol_land+smolCars_value_dash+smolboadies_value_dash+smolbrains_value_dash
 
     totalFloor[2].metric(label = "Total Free Mint",
             value = "$%.2f" %int(total),
@@ -110,6 +111,7 @@ def getFloor():
     st.markdown("***")
 
     st.write("follow on twitter [@smolmintfloor](https://twitter.com/smolmintfloor)")
+
 getFloor()
 
 
